@@ -2,7 +2,7 @@
 using UIFrameworkCSharp.saucedemo.domain;
 using UIFrameworkCSharp.saucedemo.utilities;
 
-namespace UIFrameworkCSharp.tests;
+namespace UIFrameworkCSharp.tests.saucedemoTests;
 
 [TestClass]
 public class CartTests

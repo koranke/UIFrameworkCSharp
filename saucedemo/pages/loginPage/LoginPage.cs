@@ -12,10 +12,10 @@ namespace UIFrameworkCSharp.saucedemo.pages.loginPage;
 
 public class LoginPage : BaseSauceDemoPage<LoginPage>
 {
-    public TextBox TextBoxUserName { get; set; }
-    public TextBox TextBoxPassword { get; set; }
-    public Label LabelError { get; set; }
-    public Button ButtonLogin { get; set; }
+    public TextBox TextBoxUserName { get; }
+    public TextBox TextBoxPassword { get; }
+    public Label LabelError { get; }
+    public Button ButtonLogin { get; }
 
     public LoginPage(SauceDemoSite site) : base(site, "")
     {

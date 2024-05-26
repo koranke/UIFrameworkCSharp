@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UIFrameworkCSharp.saucedemo.pages.productsPage;
+﻿namespace UIFrameworkCSharp.saucedemo.pages.productsPage;
 
 using OpenQA.Selenium;
 using System.Collections.Generic;

@@ -15,41 +15,41 @@ public class ListCartItems : ListControl<ListCartItems>
     public ListCartItems(Locator locator) : base(locator)
     {
         this.hasHeader = false;
-        this.rowLocatorPattern = ".//div[@class='cart_item']";
+        this.RowLocatorPattern = ".//div[@class='cart_item']";
 
         labelQuantity = new RepeatingControl<Label>(
             locator,
             ".//div[@class='cart_quantity']",
             LocatorMethod.XPATH,
-            rowLocatorPattern,
+            RowLocatorPattern,
             hasHeader
         );
         labelPrice = new RepeatingControl<Label>(
             locator,
             ".//div[@class='inventory_item_price']",
             LocatorMethod.XPATH,
-            rowLocatorPattern,
+            RowLocatorPattern,
             hasHeader
         );
         labelName = new RepeatingControl<Label>(
             locator,
             ".//div[@class='inventory_item_name']",
             LocatorMethod.XPATH,
-            rowLocatorPattern,
+            RowLocatorPattern,
             hasHeader
         );
         labelDescription = new RepeatingControl<Label>(
             locator,
             ".//div[@class='inventory_item_desc']",
             LocatorMethod.XPATH,
-            rowLocatorPattern,
+            RowLocatorPattern,
             hasHeader
         );
         buttonRemove = new RepeatingControl<Button>(
             locator,
             "Remove",
             LocatorMethod.TEXT,
-            rowLocatorPattern,
+            RowLocatorPattern,
             hasHeader
         );
     }

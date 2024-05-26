@@ -6,6 +6,7 @@ namespace UIFrameworkCSharp.core.controls;
 
 public class RepeatingControl<T> : BaseControl
 {
+    private string replacementText;
     private string controlId;
     private string controlId2;
     private string controlId3;
@@ -45,6 +46,12 @@ public class RepeatingControl<T> : BaseControl
         this.hasHeader = hasHeader;
     }
 
+    public T Get(int row, string replacementText)
+    {
+        this.replacementText = replacementText;
+        return Get(row);
+    }
+
     public T Get(int row)
    {
         /*
@@ -71,7 +78,8 @@ public class RepeatingControl<T> : BaseControl
                 case LocatorMethod.TEXT:
                     return getControl(GetRowLocator(row).WithNext(By.XPath($".//*[text()='{controlId}']")));
                 case LocatorMethod.XPATH:
-                    return getControl(GetRowLocator(row).WithNext(By.XPath(controlId)));
+                    return getControl(GetRowLocator(row)
+                        .WithNext(By.XPath(replacementText == null ? controlId : controlId.Replace("{0}", replacementText))));
             }
         }
         return default(T);

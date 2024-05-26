@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using OpenQA.Selenium;
-using System.Threading;
+﻿using OpenQA.Selenium;
 
 namespace UIFrameworkCSharp.core.controls;
 
@@ -63,6 +56,17 @@ public abstract class BaseControl
         // Implement waiting logic here
     }
 
+    public void Hover()
+    {
+        this.locator.Hover();
+    }
+
+    public void ScrollToElement()
+    {
+        this.locator.ScrollToElement();
+    }
+
+
     public void AssertText(string text)
     {
         if (!GetActualText(locator).Equals(text))
@@ -102,5 +106,10 @@ public abstract class BaseControl
     public void Wait(int timeToWait)
     {
         Thread.Sleep(timeToWait);
+    }
+
+    public string GetAttribute(string attributeName)
+    {
+        return locator.GetAttribute(attributeName);
     }
 }

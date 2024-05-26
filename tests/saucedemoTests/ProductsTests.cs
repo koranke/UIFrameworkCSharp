@@ -4,7 +4,7 @@ using UIFrameworkCSharp.saucedemo.pages.productsPage;
 using UIFrameworkCSharp.saucedemo;
 using UIFrameworkCSharp.saucedemo.utilities;
 
-namespace UIFrameworkCSharp.tests;
+namespace UIFrameworkCSharp.tests.saucedemoTests;
 
 [TestClass]
 public class ProductsTests

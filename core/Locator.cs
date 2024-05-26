@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
+using OpenQA.Selenium.Interactions;
 
 namespace UIFrameworkCSharp.core;
 
@@ -197,5 +190,17 @@ public class Locator
     public Locator Clone()
     {
         return new Locator(webDriver, By);
+    }
+
+    public void Hover()
+    {
+        Actions actions = new Actions(webDriver);
+        actions.MoveToElement(GetElement()).Perform();
+    }
+
+    public void ScrollToElement()
+    {
+        IJavaScriptExecutor js = (IJavaScriptExecutor)webDriver;
+        js.ExecuteScript("arguments[0].scrollIntoView(true);", GetElement());
     }
 }

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UIFrameworkCSharp.core;
 using UIFrameworkCSharp.saucedemo.pages.loginPage;
 
-namespace UIFrameworkCSharp.tests;
+namespace UIFrameworkCSharp.tests.saucedemoTests;
 
 [TestClass]
 public class LoginBasicTests
 {
     BrowserOps browserOps = new BrowserOps();
-    String testUrl = "https://www.saucedemo.com";
+    string testUrl = "https://www.saucedemo.com";
     IWebDriver driver;
     LoginPageBasic loginPage;
 
@@ -27,14 +27,14 @@ public class LoginBasicTests
     {
         browserOps.GoTo(testUrl);
 
-        String passwordLabel = loginPage.GetPasswordLabelText();
+        string passwordLabel = loginPage.GetPasswordLabelText();
         Assert.AreEqual("secret_sauce", passwordLabel);
 
-        List<String> usernameLabel = loginPage.GetUsernameLabelText();
+        List<string> usernameLabel = loginPage.GetUsernameLabelText();
         Assert.IsTrue(usernameLabel.Contains("standard_user"));
         Assert.AreEqual(6, usernameLabel.Count);
         CollectionAssert.AreEquivalent(
-            new List<String> { "standard_user", "locked_out_user", "problem_user", "performance_glitch_user", "error_user", "visual_user" }, 
+            new List<string> { "standard_user", "locked_out_user", "problem_user", "performance_glitch_user", "error_user", "visual_user" },
             usernameLabel
             );
 
@@ -54,7 +54,7 @@ public class LoginBasicTests
         IWebElement loginButton = driver.FindElement(By.Id("login-button"));
         loginButton.Click();
 
-        System.Threading.Thread.Sleep(2000);
+        Thread.Sleep(2000);
         browserOps.Close();
     }
 
@@ -68,7 +68,7 @@ public class LoginBasicTests
         loginPage.Password.SendKeys("secret_sauce");
         loginPage.LoginButton.Click();
 
-        System.Threading.Thread.Sleep(2000);
+        Thread.Sleep(2000);
         browserOps.Close();
     }
 }

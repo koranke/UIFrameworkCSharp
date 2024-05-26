@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System;
-using System.Collections.Generic;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace UIFrameworkCSharp.core.controls;
 
@@ -14,7 +6,7 @@ public abstract class ListControl<T> : BaseControl where T : ListControl<T>
 {
     protected int currentRow;
     protected RepeatingControl<Label> searchLabel;
-    protected string rowLocatorPattern;
+    public string RowLocatorPattern { get; set; }
     protected bool hasHeader;
     protected bool headerUsesRowLocatorPattern;
     protected string headerControlId;
@@ -30,14 +22,14 @@ public abstract class ListControl<T> : BaseControl where T : ListControl<T>
 
     public int GetRowCount()
     {
-        int rowCount = locator.GetWithNextLocator(By.XPath(rowLocatorPattern)).All().Count;
+        int rowCount = locator.GetWithNextLocator(By.XPath(RowLocatorPattern)).All().Count;
         return hasHeader && headerUsesRowLocatorPattern ? rowCount - 1 : rowCount;
     }
 
     public ListControl<T> AssertRowCount(int expectedRowCount)
     {
         expectedRowCount = GetAdjustedRow(expectedRowCount);
-        Assert.AreEqual(GetRowCount(), expectedRowCount, "Unexpected row count");
+        Assert.AreEqual(expectedRowCount, GetRowCount(), "Unexpected row count");
         return this;
     }
 

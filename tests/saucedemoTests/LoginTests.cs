@@ -1,7 +1,7 @@
 ﻿using UIFrameworkCSharp.core;
 using UIFrameworkCSharp.saucedemo;
 
-namespace UIFrameworkCSharp.tests;
+namespace UIFrameworkCSharp.tests.saucedemoTests;
 
 [TestClass]
 public class LoginTests
