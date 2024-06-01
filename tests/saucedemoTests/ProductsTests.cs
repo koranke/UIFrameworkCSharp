@@ -59,6 +59,6 @@ public class ProductsTests
         ProductsPage productsPage = new SauceDemoSite().ProductsPage().Open();
         productsPage.ListProducts.WithRow(1).ButtonAddToCart().Click();
         productsPage.ListProducts.ButtonRemoveFromCart().Click();
-        Assert.IsFalse(productsPage.LabelCartCount.IsVisible());
+        productsPage.LabelCartCount.AssertIsNotVisible();
     }
 }

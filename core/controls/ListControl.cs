@@ -67,4 +67,14 @@ public abstract class ListControl<T> : BaseControl where T : ListControl<T>
         }
         return allLabels;
     }
+
+    public Locator getRowLocator(int row)
+    {
+        return locator.GetWithNextLocator(By.XPath(string.Format("{0}[{1}]", RowLocatorPattern, row)));
+    }
+
+    public IWebElement getRowAsElement(int row)
+    {
+        return getRowLocator(row).GetElement();
+    }
 }

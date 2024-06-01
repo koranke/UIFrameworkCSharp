@@ -4,11 +4,11 @@ namespace UIFrameworkCSharp.magentodemo.pages.whatIsNewPage;
 
 public class WhatIsNewPage : BaseMagentoPage<WhatIsNewPage>
 {
-    public NavigationPanel Navigation { get; }
+    public PanelNavigation Navigation { get; }
 
     public WhatIsNewPage(MagentoSite site) : base(site, "what-is-new.html")
     {
-        this.Navigation = new NavigationPanel(site.WebDriver);
+        this.Navigation = new PanelNavigation(site.WebDriver);
     }
 
     //public WhatIsNewPage Open()

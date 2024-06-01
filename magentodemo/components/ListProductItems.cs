@@ -7,11 +7,11 @@ namespace UIFrameworkCSharp.magentodemo.components;
 
 public class ListProductItems : ListControl<ListProductItems>
 {
-    public RepeatingControl<Label> labelItemName { get; }
-    public RepeatingControl<Label> labelItemPrice { get; }
-    public RepeatingControl<Label> labelOption { get; }
-    public RepeatingControl<Label> labelColor { get; }
-    public RepeatingControl<Button> buttonAddToCart { get; }
+    private RepeatingControl<Label> labelItemName;
+    private RepeatingControl<Label> labelItemPrice;
+    private RepeatingControl<Label> labelOption;
+    private RepeatingControl<Label> labelColor;
+    private RepeatingControl<Button> buttonAddToCart;
 
 
     public ListProductItems(Locator locator, string rowLocatorPattern) : base(locator)
@@ -44,7 +44,7 @@ public class ListProductItems : ListControl<ListProductItems>
 
         this.labelOption = new RepeatingControl<Label>(
             locator,
-            ".//div[@class='swatch-attribute-options clearfix']/div[text()='{0}']",
+            ".//div[@class='swatch-option text' and text()='{0}']",
             LocatorMethod.XPATH,
             RowLocatorPattern,
             hasHeader
@@ -52,7 +52,7 @@ public class ListProductItems : ListControl<ListProductItems>
 
         this.labelColor = new RepeatingControl<Label>(
             locator,
-            ".//div[@class='swatch-attribute color']//div[@option-label='{0}']",
+            ".//div[@class='swatch-option color' and @option-label='{0}']",
             LocatorMethod.XPATH,
             RowLocatorPattern,
             hasHeader
@@ -88,5 +88,19 @@ public class ListProductItems : ListControl<ListProductItems>
     public Label LabelColor(string color)
     {
         return labelColor.Get(currentRow, color);
+    }
+
+    public List<string> GetAllSizes()
+    {
+        string sizesPattern = ".//div[@class='swatch-option text']";
+        var sizes = getRowAsElement(currentRow).FindElements(By.XPath(sizesPattern));
+        return sizes.Select(size => size.Text).ToList();
+    }
+
+    public List<string> GetAllColors()
+    {
+        string colorsPattern = ".//div[@class='swatch-option color']";
+        var colors = getRowAsElement(currentRow).FindElements(By.XPath(colorsPattern));
+        return colors.Select(color => color.GetAttribute("option-label")).ToList();
     }
 }

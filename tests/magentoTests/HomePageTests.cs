@@ -1,18 +1,13 @@
-﻿using UIFrameworkCSharp.core;
-using UIFrameworkCSharp.magentodemo;
+﻿using UIFrameworkCSharp.magentodemo;
 using UIFrameworkCSharp.magentodemo.components;
+using UIFrameworkCSharp.magentodemo.data;
 using UIFrameworkCSharp.magentodemo.pages.homePage;
 
 namespace UIFrameworkCSharp.tests.magentoTests;
 
 [TestClass]
-public class HomePageTests
+public class HomePageTests : TestBase
 {
-    [TestCleanup]
-    public void Cleanup()
-    {
-        SeleniumManager.CloseCurrentDriver();
-    }
 
     [TestMethod]
     public void TestHomePage()
@@ -35,8 +30,8 @@ public class HomePageTests
         site.HomePage().Open();
         site.HomePage().AssertIsOpen();
 
-        site.HomePage().Navigation.SearchBox.SetText("shirt");
-        site.HomePage().Navigation.SearchButton.Click();
+        site.HomePage().Navigation.TextBoxSearch.SetText("shirt");
+        site.HomePage().Navigation.ButtonSearch.Click();
         site.SearchResultsPage().LabelResults.AssertText("Search results for: 'shirt'");
         site.SearchResultsPage().ListProductItems.AssertRowCount(5);
     }
@@ -46,18 +41,22 @@ public class HomePageTests
     {
         HomePage homePage = new MagentoSite().HomePage().Open();
         ListProductItems listProductItems = homePage.ListProductItems;
+        List<Product> products = GetAllVisibleProducts(listProductItems);
 
-        AddProductToCart(listProductItems, "Hero Hoodie", "L", "Green");
-        AddProductToCart(listProductItems, "Radiant Tee", "M", "Orange");
+        AddProductToCart(listProductItems, products[0], 0, 0);
+        AddProductToCart(listProductItems, products[1], 0, 0);
+
+        homePage.Navigation.LabelCartCount.AssertText("2");
     }
 
-    private void AddProductToCart(ListProductItems listProductItems, string productName, string option, string color)
+    [TestMethod]
+    public void TestProducts()
     {
-        listProductItems.UsingLabelName().WithRow(productName).LabelItemName().ScrollToElement();
-        listProductItems.LabelItemName().Hover();
-        listProductItems.LabelOption(option).Click();
-        listProductItems.LabelColor(color).Click();
-        listProductItems.ButtonAddToCart().AssertIsVisible();
-        listProductItems.ButtonAddToCart().Click();
+        HomePage homePage = new MagentoSite().HomePage().Open();
+        ListProductItems listProductItems = homePage.ListProductItems;
+
+        List<Product> products = GetAllVisibleProducts(listProductItems);
+        Assert.AreEqual(5, products.Count);
     }
+
 }

@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using NLog;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Safari;
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using UIFrameworkCSharp.core.enums;
+using UIFrameworkCSharp.core.extensions;
 
 namespace UIFrameworkCSharp.core;
 
 public class SeleniumManager
 {
-//    private static readonly Props props = ConfigCache.GetOrCreate<Props>();
-//    private static readonly Log log = Log.GetInstance();
+    //    private static readonly Props props = ConfigCache.GetOrCreate<Props>();
+    protected static Logger log = LogManager.GetCurrentClassLogger();
     private static readonly Dictionary<long, IWebDriver> driverMap = new Dictionary<long, IWebDriver>();
 
     public static int SlowTime { get; set; } = 0; //props.SlowTime;
@@ -37,7 +30,7 @@ public class SeleniumManager
         {
             driverMap[threadId].Quit();
         }
-//        log.Debug($"Getting new driver for thread: {Thread.CurrentThread.ManagedThreadId}");
+        log.Debug($"Getting new driver for thread: {Thread.CurrentThread.ManagedThreadId}");
         driverMap[threadId] = GetConfiguredDriver(targetBrowser);
         return driverMap[threadId];
     }
@@ -54,13 +47,13 @@ public class SeleniumManager
 
         if (driverMap.ContainsKey(threadId))
         {
-//            log.Debug($"Closing current driver for thread: {Thread.CurrentThread.ManagedThreadId}");
+            log.Debug($"Closing current driver for thread: {Thread.CurrentThread.ManagedThreadId}");
             driverMap[threadId].Quit();
             driverMap.Remove(threadId);
         }
         else
         {
-//            log.Debug($"No driver to close for thread: {Thread.CurrentThread.ManagedThreadId}");
+            log.Debug($"No driver to close for thread: {Thread.CurrentThread.ManagedThreadId}");
         }
     }
 
@@ -107,7 +100,7 @@ public class SeleniumManager
                 webDriver = new FirefoxDriver(firefoxOptions);
                 break;
             default:
-//                log.LogAssert(false, $"Unsupported Browser: {targetBrowser.Value}");
+                log.LogAssert(false, $"Unsupported Browser: {targetBrowser.Value}");
                 return null;
         }
         webDriver.Manage().Window.Maximize();

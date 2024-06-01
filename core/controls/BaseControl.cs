@@ -31,9 +31,9 @@ public abstract class BaseControl
         Assert.IsTrue(!IsEnabled(), "Unexpected enabled state.");
     }
 
-    public bool IsVisible()
+    public bool IsVisible(int timeoutInSeconds)
     {
-        return locator.IsVisible();
+        return locator.IsVisible(timeoutInSeconds);
     }
 
     public bool IsNotVisible()
@@ -43,17 +43,17 @@ public abstract class BaseControl
 
     public void AssertIsVisible()
     {
-        Assert.IsTrue(IsVisible(), "Control is not visible.");
+        AssertIsVisible(0);
+    }
+
+    public void AssertIsVisible(int timeoutInSeconds)
+    {
+        Assert.IsTrue(IsVisible(timeoutInSeconds), "Control is not visible.");
     }
 
     public void AssertIsNotVisible()
     {
         Assert.IsTrue(IsNotVisible(), "Control is visible.");
-    }
-
-    public void WaitForControl()
-    {
-        // Implement waiting logic here
     }
 
     public void Hover()
@@ -73,7 +73,7 @@ public abstract class BaseControl
         {
             Thread.Sleep(1000);
         }
-        Assert.AreEqual(GetActualText(locator), text);
+        Assert.AreEqual(text, GetActualText(locator));
     }
 
     public void AssertTextContains(string text)

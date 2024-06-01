@@ -1,5 +1,4 @@
 ﻿using UIFrameworkCSharp.core;
-using UIFrameworkCSharp.saucedemo;
 
 namespace UIFrameworkCSharp.magentodemo.pages;
 

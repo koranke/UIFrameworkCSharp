@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Name": "Radiant Tee",
+    "Price": "$22.00",
+    "Colors": [
+      "Blue",
+      "Orange",
+      "Purple"
+    ],
+    "Sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  }
+]

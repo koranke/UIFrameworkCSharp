@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
+using UIFrameworkCSharp.core.extensions;
 
 namespace UIFrameworkCSharp.core;
 
@@ -139,7 +140,7 @@ public class Locator
         try
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(maxWaitTimeInSeconds));
-            return wait.Until(condition => webDriver.FindElement(By).Displayed);
+            return wait.Until(condition => webDriver.FindElement(By).Displayed == true);
         }
         catch (WebDriverTimeoutException)
         {
