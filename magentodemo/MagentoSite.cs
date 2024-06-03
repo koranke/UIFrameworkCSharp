@@ -21,30 +21,39 @@ public class MagentoSite : Site<MagentoSite>
         this.BaseUrl = MagentoConstants.BaseUrl;
     }
 
-    public HomePage HomePage()
+    public HomePage HomePage
     {
-        if (homePage == null)
+        get 
         {
-            homePage = new HomePage(this);
+            if (homePage == null)
+            {
+                homePage = new HomePage(this);
+            }
+            return homePage;
         }
-        return homePage;
     }
 
-    public WhatIsNewPage WhatIsNewPage()
+    public WhatIsNewPage WhatIsNewPage
     {
-        if (whatIsNewPage == null)
+        get 
         {
-            whatIsNewPage = new WhatIsNewPage(this);
+            if (whatIsNewPage == null)
+            {
+                whatIsNewPage = new WhatIsNewPage(this);
+            }
+            return whatIsNewPage;
         }
-        return whatIsNewPage;
     }
 
-    public SearchResultsPage SearchResultsPage()
+    public SearchResultsPage SearchResultsPage
     {
-        if (searchResultsPage == null)
+        get 
         {
-            searchResultsPage = new SearchResultsPage(this);
+            if (searchResultsPage == null)
+            {
+                searchResultsPage = new SearchResultsPage(this);
+            }
+            return searchResultsPage;
         }
-        return searchResultsPage;
     }
 }

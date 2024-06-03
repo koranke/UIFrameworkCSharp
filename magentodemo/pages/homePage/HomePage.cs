@@ -7,7 +7,7 @@ namespace UIFrameworkCSharp.magentodemo.pages.homePage;
 public class HomePage : BaseMagentoPage<HomePage>
 {
     /*
-     * Elements to hangle:
+     * Elements to handle:
      *  main menu
      *  search tool
      *  cart

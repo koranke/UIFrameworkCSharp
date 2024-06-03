@@ -12,7 +12,7 @@ public class ListCartPreviewItems : ListControl<ListCartPreviewItems>
     private RepeatingControl<Label> labelSize;
     private RepeatingControl<Label> labelColor;
     private RepeatingControl<Label> labelItemPrice;
-    private RepeatingControl<Label> textBoxlItemQty;
+    private RepeatingControl<TextBox> textBoxlItemQty;
     private RepeatingControl<Button> buttonRemove;
     private RepeatingControl<Button> buttonEdit;
 
@@ -61,7 +61,7 @@ public class ListCartPreviewItems : ListControl<ListCartPreviewItems>
             hasHeader
             );
 
-        this.textBoxlItemQty = new RepeatingControl<Label>(
+        this.textBoxlItemQty = new RepeatingControl<TextBox>(
             locator,
             ".//input[@class='input-text qty']",
             LocatorMethod.XPATH,
@@ -76,65 +76,90 @@ public class ListCartPreviewItems : ListControl<ListCartPreviewItems>
         return this;
     }
 
-    public Label LabelItemName()
+    public Label LabelItemName
     {
-        return this.labelItemName.Get(currentRow);
+        get
+        {
+            return this.labelItemName.Get(currentRow);
+        }
     }
 
-    public Label LabelDetails()
+    public Label LabelDetails
     {
-        return this.labelDetails.Get(currentRow);
+        get
+        {
+            return this.labelDetails.Get(currentRow);
+        }
     }
 
-    public Label LabelSize()
+    public Label LabelSize
     {
-        return this.labelSize.Get(currentRow);
-    }   
-
-    public Label LabelColor() {
-        return this.labelColor.Get(currentRow);
+        get
+        {
+            return this.labelSize.Get(currentRow);
+        }
     }
 
-    public Label LabelItemPrice()
+    public Label LabelColor
     {
-        return this.labelItemPrice.Get(currentRow);
+        get
+        {
+            return this.labelColor.Get(currentRow);
+        }
     }
 
-    public Label TextBoxItemQty()
+    public Label LabelItemPrice
     {
-        return this.textBoxlItemQty.Get(currentRow);
+        get
+        {
+            return this.labelItemPrice.Get(currentRow);
+        }
     }
 
-    public Button ButtonRemove()
+    public TextBox TextBoxItemQty
     {
-        return this.buttonRemove.Get(currentRow);
+        get
+        {
+            return this.textBoxlItemQty.Get(currentRow);
+        }
     }
 
-    public Button ButtonEdit()
+    public Button ButtonRemove
     {
-        return this.buttonEdit.Get(currentRow);
+        get
+        {
+            return this.buttonRemove.Get(currentRow);
+        }
+    }
+
+    public Button ButtonEdit
+    {
+        get
+        {
+            return this.buttonEdit.Get(currentRow);
+        }
     }
 
     public void VerifyItem(Product product, int? sizeIndex, int? colorIndex)
     {
-        UsingLabelName().WithRow(product.Name).LabelDetails().Click();
+        UsingLabelName().WithRow(product.Name).LabelDetails.Click();
         if (sizeIndex != null)
         {
-            LabelSize().AssertText(product.Sizes[sizeIndex??0]);
+            LabelSize.AssertText(product.Sizes[sizeIndex??0]);
         }
         else
         {
-            LabelSize().AssertIsNotVisible();
+            LabelSize.AssertIsNotVisible();
         }
         if (colorIndex != null)
         {
-            LabelColor().AssertText(product.Colors[colorIndex??0]);
+            LabelColor.AssertText(product.Colors[colorIndex??0]);
         }
         else
         {
-            LabelColor().AssertIsNotVisible();
+            LabelColor.AssertIsNotVisible();
         }
         
-        LabelItemPrice().AssertText(product.Price);
+        LabelItemPrice.AssertText(product.Price);
     }
 }

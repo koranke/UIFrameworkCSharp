@@ -50,12 +50,12 @@ public abstract class TestBase
 
     protected void AddProductToCart(ListProductItems listProductItems, string productName, string option, string color)
     {
-        listProductItems.UsingLabelName().WithRow(productName).LabelItemName().ScrollToElement();
-        listProductItems.LabelItemName().Hover();
+        listProductItems.UsingLabelName().WithRow(productName).LabelItemName.ScrollToElement();
+        listProductItems.LabelItemName.Hover();
         if (option != null) listProductItems.LabelOption(option).Click();
         if (color != null) listProductItems.LabelColor(color).Click();
-        listProductItems.ButtonAddToCart().AssertIsVisible();
-        listProductItems.ButtonAddToCart().Click();
+        listProductItems.ButtonAddToCart.AssertIsVisible();
+        listProductItems.ButtonAddToCart.Click();
     }
 
     protected Product GetProduct(ListProductItems listProductItems, int row)
@@ -63,8 +63,8 @@ public abstract class TestBase
         listProductItems.WithRow(row);
 
         Product product = new Product();
-        product.Name = listProductItems.LabelItemName().GetText();
-        product.Price = listProductItems.LabelItemPrice().GetText();
+        product.Name = listProductItems.LabelItemName.GetText();
+        product.Price = listProductItems.LabelItemPrice.GetText();
         product.Sizes = listProductItems.GetAllSizes();
         product.Colors = listProductItems.GetAllColors();
         return product;

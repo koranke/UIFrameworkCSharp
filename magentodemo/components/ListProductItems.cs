@@ -65,29 +65,38 @@ public class ListProductItems : ListControl<ListProductItems>
         return this;
     }
 
-    public Label LabelItemName()
+    public Label LabelItemName
     {
-        return labelItemName.Get(currentRow);
+        get
+        {
+            return labelItemName.Get(currentRow);
+        }
     }
 
-    public Label LabelItemPrice()
+    public Label LabelItemPrice
     {
-        return labelItemPrice.Get(currentRow);
-    }
-
-    public Button ButtonAddToCart()
-    {
-        return buttonAddToCart.Get(currentRow);
+        get
+        {
+            return labelItemPrice.Get(currentRow);
+        }
     }
 
     public Label LabelOption(string option)
     {
-        return labelOption.Get(currentRow, option);
+            return labelOption.Get(currentRow, option);
     }
 
     public Label LabelColor(string color)
     {
-        return labelColor.Get(currentRow, color);
+            return labelColor.Get(currentRow, color);
+    }
+
+    public Button ButtonAddToCart
+    {
+        get
+        {
+            return buttonAddToCart.Get(currentRow);
+        }
     }
 
     public List<string> GetAllSizes()

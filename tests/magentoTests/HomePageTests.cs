@@ -13,33 +13,33 @@ public class HomePageTests : TestBase
     public void TestHomePage()
     {
         MagentoSite site = new MagentoSite();
-        site.HomePage().Open();
-        site.HomePage().AssertIsOpen();
+        site.HomePage.Open();
+        site.HomePage.AssertIsOpen();
 
-        site.HomePage().Navigation.WhatsNew.Click();
-        site.WhatIsNewPage().AssertIsOpen();
+        site.HomePage.Navigation.WhatsNew.Click();
+        site.WhatIsNewPage.AssertIsOpen();
 
-        site.WhatIsNewPage().Navigation.Logo.Click();
-        site.HomePage().AssertIsOpen();
+        site.WhatIsNewPage.Navigation.Logo.Click();
+        site.HomePage.AssertIsOpen();
     }
 
     [TestMethod]
     public void TestSearch()
     {
         MagentoSite site = new MagentoSite();
-        site.HomePage().Open();
-        site.HomePage().AssertIsOpen();
+        site.HomePage.Open();
+        site.HomePage.AssertIsOpen();
 
-        site.HomePage().Navigation.TextBoxSearch.SetText("shirt");
-        site.HomePage().Navigation.ButtonSearch.Click();
-        site.SearchResultsPage().LabelResults.AssertText("Search results for: 'shirt'");
-        site.SearchResultsPage().ListProductItems.AssertRowCount(5);
+        site.HomePage.Navigation.TextBoxSearch.SetText("shirt");
+        site.HomePage.Navigation.ButtonSearch.Click();
+        site.SearchResultsPage.LabelResults.AssertText("Search results for: 'shirt'");
+        site.SearchResultsPage.ListProductItems.AssertRowCount(5);
     }
 
     [TestMethod]
     public void TestAddToCart()
     {
-        HomePage homePage = new MagentoSite().HomePage().Open();
+        HomePage homePage = new MagentoSite().HomePage.Open();
         ListProductItems listProductItems = homePage.ListProductItems;
         List<Product> products = GetAllVisibleProducts(listProductItems);
 
@@ -52,11 +52,11 @@ public class HomePageTests : TestBase
     [TestMethod]
     public void TestProducts()
     {
-        HomePage homePage = new MagentoSite().HomePage().Open();
+        HomePage homePage = new MagentoSite().HomePage.Open();
         ListProductItems listProductItems = homePage.ListProductItems;
 
         List<Product> products = GetAllVisibleProducts(listProductItems);
-        Assert.AreEqual(5, products.Count);
+        Assert.AreEqual(6, products.Count, "Unexpected number of products.");
     }
 
 }

@@ -3,7 +3,6 @@ using System.Globalization;
 using UIFrameworkCSharp.core;
 using UIFrameworkCSharp.core.controls;
 using UIFrameworkCSharp.magentodemo.data;
-using UIFrameworkCSharp.magentodemo.pages.homePage;
 
 namespace UIFrameworkCSharp.magentodemo.components;
 
