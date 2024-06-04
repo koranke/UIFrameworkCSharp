@@ -28,10 +28,8 @@ public class HomePageTests : TestBase
     {
         MagentoSite site = new MagentoSite();
         site.HomePage.Open();
-        site.HomePage.AssertIsOpen();
-
-        site.HomePage.Navigation.TextBoxSearch.SetText("shirt");
-        site.HomePage.Navigation.ButtonSearch.Click();
+        site.HomePage.Navigation.Search("shirt");
+        site.SearchResultsPage.AssertIsOpen();
         site.SearchResultsPage.LabelResults.AssertText("Search results for: 'shirt'");
         site.SearchResultsPage.ListProductItems.AssertRowCount(5);
     }

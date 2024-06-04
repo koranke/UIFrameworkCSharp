@@ -39,7 +39,14 @@ public abstract class BasePage<T>
         WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(30));
         try
         {
-            return wait.Until(condition => WebDriver.Url == url);
+            if (url.EndsWith(".*"))
+            {
+                return wait.Until(condition => WebDriver.Url.Contains(url.Replace(".*", "")));
+            }
+            else
+            {
+                return wait.Until(condition => WebDriver.Url == url);
+            }
         }
         catch (OpenQA.Selenium.WebDriverTimeoutException)
         {

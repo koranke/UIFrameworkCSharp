@@ -34,4 +34,10 @@ public class PanelNavigation : PanelControl
     {
         return By.XPath(string.Format(menuSelector, menuName));
     }
+
+    public void Search(string text)
+    {
+        TextBoxSearch.SetText(text);
+        ButtonSearch.Click();
+    }
 }

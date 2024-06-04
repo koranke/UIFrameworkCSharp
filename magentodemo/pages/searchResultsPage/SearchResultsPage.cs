@@ -12,7 +12,7 @@ public class SearchResultsPage : BaseMagentoPage<SearchResultsPage>
     public Label LabelNoResults { get; }
     public ListProductItems ListProductItems { get; }
 
-    public SearchResultsPage(MagentoSite site) : base(site, "catalogsearch/result")
+    public SearchResultsPage(MagentoSite site) : base(site, "catalogsearch/result/.*")
     {
         this.Navigation = new PanelNavigation(site.WebDriver);
         this.LabelResults = new Label(site.WebDriver, By.XPath("//h1[@class='page-title']/span"));
