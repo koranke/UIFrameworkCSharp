@@ -1,4 +1,5 @@
-﻿using UIFrameworkCSharp.magentodemo;
+﻿using FluentAssertions;
+using UIFrameworkCSharp.magentodemo;
 using UIFrameworkCSharp.magentodemo.components;
 using UIFrameworkCSharp.magentodemo.data;
 using UIFrameworkCSharp.magentodemo.pages.homePage;
@@ -35,14 +36,26 @@ public class HomePageTests : TestBase
     }
 
     [TestMethod]
+    public void TestSizesAndColors()
+    {
+        HomePage homePage = new MagentoSite().HomePage.Open();
+        ListProducts listProductItems = homePage.ListProducts;
+        listProductItems.UsingLabelName().WithRow("Hero Hoodie").LabelItemName.ScrollToElement();
+        List<string> sizes = listProductItems.GetAllSizes();
+        sizes.Should().BeEquivalentTo(new List<string> { "XS", "S", "M", "L", "XL" });
+        List<string> colors = listProductItems.GetAllColors();
+        colors.Should().BeEquivalentTo(new List<string> { "Black", "Green", "Gray" });
+    }
+
+    [TestMethod]
     public void TestAddToCart()
     {
         HomePage homePage = new MagentoSite().HomePage.Open();
-        ListProductItems listProductItems = homePage.ListProductItems;
-        List<Product> products = GetAllVisibleProducts(listProductItems);
+        ListProducts listProducts = homePage.ListProducts;
+        List<Product> products = listProducts.GetAllVisibleProducts();
 
-        AddProductToCart(listProductItems, products[0], 0, 0);
-        AddProductToCart(listProductItems, products[1], 0, 0);
+        listProducts.AddProductToCart(products[0], 0, 0);
+        listProducts.AddProductToCart(products[1], 1, 1);
 
         homePage.Navigation.LabelCartCount.AssertText("2");
     }
@@ -51,9 +64,9 @@ public class HomePageTests : TestBase
     public void TestProducts()
     {
         HomePage homePage = new MagentoSite().HomePage.Open();
-        ListProductItems listProductItems = homePage.ListProductItems;
+        ListProducts listProducts = homePage.ListProducts;
 
-        List<Product> products = GetAllVisibleProducts(listProductItems);
+        List<Product> products = listProducts.GetAllVisibleProducts();
         Assert.AreEqual(6, products.Count, "Unexpected number of products.");
     }
 

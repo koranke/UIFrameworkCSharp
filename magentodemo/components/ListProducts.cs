@@ -2,24 +2,25 @@
 using UIFrameworkCSharp.core;
 using UIFrameworkCSharp.core.controls;
 using UIFrameworkCSharp.core.enums;
+using UIFrameworkCSharp.magentodemo.data;
 
 namespace UIFrameworkCSharp.magentodemo.components;
 
-public class ListProductItems : ListControl<ListProductItems>
+public class ListProducts : ListControl<ListProducts>
 {
-    private RepeatingControl<Label> labelItemName;
-    private RepeatingControl<Label> labelItemPrice;
+    private RepeatingControl<Label> labelName;
+    private RepeatingControl<Label> labelPrice;
     private RepeatingControl<Label> labelOption;
     private RepeatingControl<Label> labelColor;
     private RepeatingControl<Button> buttonAddToCart;
 
 
-    public ListProductItems(Locator locator, string rowLocatorPattern) : base(locator)
+    public ListProducts(Locator locator, string rowLocatorPattern) : base(locator)
     {
         this.hasHeader = false;
         this.RowLocatorPattern = rowLocatorPattern;
 
-        this.labelItemName = new RepeatingControl<Label>(
+        this.labelName = new RepeatingControl<Label>(
             locator, 
             ".//a[@class='product-item-link']",
             LocatorMethod.XPATH,
@@ -27,7 +28,7 @@ public class ListProductItems : ListControl<ListProductItems>
             hasHeader
             );
 
-        this.labelItemPrice = new RepeatingControl<Label>(
+        this.labelPrice = new RepeatingControl<Label>(
             locator,
             ".//span[@class='price']",
             LocatorMethod.XPATH,
@@ -59,9 +60,9 @@ public class ListProductItems : ListControl<ListProductItems>
             );
     }
 
-    public ListProductItems UsingLabelName()
+    public ListProducts UsingLabelName()
     {
-        this.searchLabel = labelItemName;
+        this.searchLabel = labelName;
         return this;
     }
 
@@ -69,7 +70,7 @@ public class ListProductItems : ListControl<ListProductItems>
     {
         get
         {
-            return labelItemName.Get(currentRow);
+            return labelName.Get(currentRow);
         }
     }
 
@@ -77,7 +78,7 @@ public class ListProductItems : ListControl<ListProductItems>
     {
         get
         {
-            return labelItemPrice.Get(currentRow);
+            return labelPrice.Get(currentRow);
         }
     }
 
@@ -111,5 +112,45 @@ public class ListProductItems : ListControl<ListProductItems>
         string colorsPattern = ".//div[@class='swatch-option color']";
         var colors = getRowAsElement(currentRow).FindElements(By.XPath(colorsPattern));
         return colors.Select(color => color.GetAttribute("option-label")).ToList();
+    }
+
+    public void AddProductToCart(Product product, int? sizeIndex, int? colorIndex)
+    {
+        AddProductToCart(product.Name,
+            sizeIndex != null ? product.Sizes[sizeIndex ?? 0] : null,
+            colorIndex != null ? product.Colors[colorIndex ?? 0] : null);
+    }
+
+    public void AddProductToCart(string productName, string option, string color)
+    {
+        UsingLabelName().WithRow(productName).LabelItemName.ScrollToElement();
+        LabelItemName.Hover();
+        if (option != null) LabelOption(option).Click();
+        if (color != null) LabelColor(color).Click();
+        ButtonAddToCart.AssertIsVisible();
+        ButtonAddToCart.Click();
+    }
+
+    public Product GetProduct(int row)
+    {
+        WithRow(row);
+
+        Product product = new Product();
+        product.Name = LabelItemName.GetText();
+        product.Price = LabelItemPrice.GetText();
+        product.Sizes = GetAllSizes();
+        product.Colors = GetAllColors();
+        return product;
+    }
+
+    public List<Product> GetAllVisibleProducts()
+    {
+        List<Product> products = new List<Product>();
+        int rowCount = GetRowCount();
+        for (int i = 1; i <= rowCount; i++)
+        {
+            products.Add(GetProduct(i));
+        }
+        return products;
     }
 }

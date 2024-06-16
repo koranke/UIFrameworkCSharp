@@ -1,7 +1,6 @@
 ﻿using UIFrameworkCSharp.magentodemo.pages.homePage;
 using UIFrameworkCSharp.magentodemo;
 using UIFrameworkCSharp.magentodemo.data;
-using Newtonsoft.Json;
 using UIFrameworkCSharp.magentodemo.components;
 
 namespace UIFrameworkCSharp.tests.magentoTests;
@@ -9,21 +8,19 @@ namespace UIFrameworkCSharp.tests.magentoTests;
 [TestClass]
 public class CartPreviewTests : TestBase
 {
-    private List<Product> products;
+    private static List<Product> products;
 
-    public CartPreviewTests()
+    [ClassInitialize]
+    public static void TestFixtureSetup(TestContext testContext)
     {
-        MagentoSite site = new MagentoSite();
-        site.HomePage.Open();
-        this.products = GetAllVisibleProducts(site.HomePage.ListProductItems);
+        products = new MagentoSite().HomePage.Open().ListProducts.GetAllVisibleProducts();
     }
 
     [TestMethod]
     public void TestViewCartPreview()
     {
         HomePage homePage = new MagentoSite().HomePage.Open();
-
-        AddProductToCart(homePage.ListProductItems, products[0], 0, 0);
+        homePage.AddProductToCart(products[0], 0, 0);
         homePage.Navigation.LabelCartCount.AssertIsVisible(2);
         homePage.Navigation.ButtonCart.Click();
 
@@ -39,8 +36,7 @@ public class CartPreviewTests : TestBase
     public void TestViewCartPreviewDetails()
     {
         HomePage homePage = new MagentoSite().HomePage.Open();
-
-        AddProductToCart(homePage.ListProductItems, products[0], 0, 0);
+        homePage.AddProductToCart(products[0], 0, 0);
         homePage.Navigation.LabelCartCount.AssertIsVisible(2);
         homePage.Navigation.ButtonCart.Click();
         ListCartPreviewItems listCartPreviewItems = homePage.Navigation.PanelCartPreview.ListCartPreviewItems;
@@ -60,8 +56,8 @@ public class CartPreviewTests : TestBase
     {
         HomePage homePage = new MagentoSite().HomePage.Open();
 
-        AddProductToCart(homePage.ListProductItems, products[0], 0, 0);
-        AddProductToCart(homePage.ListProductItems, products[1], 0, 0);
+        homePage.AddProductToCart(products[0], 0, 0);
+        homePage.AddProductToCart(products[1], 1, 1);
         homePage.Navigation.LabelCartCount.AssertIsVisible(2);
 
         homePage.Navigation.ButtonCart.Click();
@@ -69,15 +65,7 @@ public class CartPreviewTests : TestBase
 
         ListCartPreviewItems listCartPreviewItems = homePage.Navigation.PanelCartPreview.ListCartPreviewItems;
         listCartPreviewItems.VerifyItem(products[0], 0, 0);
-        listCartPreviewItems.VerifyItem(products[1], 0, 0);
-    }
-
-    [TestMethod]
-    public void dm()
-    {
-        //load json file into a list of Product objects
-        List<Product> products = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText("./magentodemo/data/products.json"));
-        Console.WriteLine(products.Count);
+        listCartPreviewItems.VerifyItem(products[1], 1, 1);
     }
 
 }

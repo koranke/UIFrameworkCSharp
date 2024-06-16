@@ -25,6 +25,7 @@ public abstract class BasePage<T>
 
     public T GoTo()
     {
+        log.Info($"Opening {this.url}");
         WebDriver.Navigate().GoToUrl(url);
         return (T)Convert.ChangeType(this, typeof(T));
     }
