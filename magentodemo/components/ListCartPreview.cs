@@ -5,7 +5,7 @@ using UIFrameworkCSharp.magentodemo.data;
 
 namespace UIFrameworkCSharp.magentodemo.components;
 
-public class ListCartPreviewItems : ListControl<ListCartPreviewItems>
+public class ListCartPreview : ListControl<ListCartPreview>
 {
     private RepeatingControl<Label> labelItemName;
     private RepeatingControl<Label> labelDetails;
@@ -16,7 +16,7 @@ public class ListCartPreviewItems : ListControl<ListCartPreviewItems>
     private RepeatingControl<Button> buttonRemove;
     private RepeatingControl<Button> buttonEdit;
 
-    public ListCartPreviewItems(Locator locator, string rowLocatorPattern) : base(locator)
+    public ListCartPreview(Locator locator, string rowLocatorPattern) : base(locator)
     {
         this.hasHeader = false;
         this.RowLocatorPattern = rowLocatorPattern;
@@ -70,7 +70,7 @@ public class ListCartPreviewItems : ListControl<ListCartPreviewItems>
             );
     }
 
-    public ListCartPreviewItems UsingLabelName()
+    public ListCartPreview UsingLabelName()
     {
         this.searchLabel = labelItemName;
         return this;
@@ -140,7 +140,7 @@ public class ListCartPreviewItems : ListControl<ListCartPreviewItems>
         }
     }
 
-    public void VerifyItem(Product product, int? sizeIndex, int? colorIndex)
+    public ListCartPreview VerifyItem(Product product, int? sizeIndex, int? colorIndex)
     {
         UsingLabelName().WithRow(product.Name).LabelDetails.Click();
         if (sizeIndex != null)
@@ -161,5 +161,6 @@ public class ListCartPreviewItems : ListControl<ListCartPreviewItems>
         }
         
         LabelItemPrice.AssertText(product.Price);
+        return this;
     }
 }

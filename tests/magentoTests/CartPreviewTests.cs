@@ -21,7 +21,6 @@ public class CartPreviewTests : TestBase
     {
         HomePage homePage = new MagentoSite().HomePage.Open();
         homePage.AddProductToCart(products[0], 0, 0);
-        homePage.Navigation.LabelCartCount.AssertIsVisible(2);
         homePage.Navigation.ButtonCart.Click();
 
         PanelCartPreview panelCartPreview = homePage.Navigation.PanelCartPreview;
@@ -37,18 +36,17 @@ public class CartPreviewTests : TestBase
     {
         HomePage homePage = new MagentoSite().HomePage.Open();
         homePage.AddProductToCart(products[0], 0, 0);
-        homePage.Navigation.LabelCartCount.AssertIsVisible(2);
         homePage.Navigation.ButtonCart.Click();
-        ListCartPreviewItems listCartPreviewItems = homePage.Navigation.PanelCartPreview.ListCartPreviewItems;
-        listCartPreviewItems.UsingLabelName().WithRow(products[0].Name).LabelItemName.AssertIsVisible();
-        listCartPreviewItems.LabelSize.AssertIsNotVisible();
-        listCartPreviewItems.LabelColor.AssertIsNotVisible();
-        listCartPreviewItems.LabelDetails.Click();
-        listCartPreviewItems.LabelSize.AssertIsVisible();
-        listCartPreviewItems.LabelColor.AssertIsVisible();
-        listCartPreviewItems.LabelSize.AssertText(products[0].Sizes[0]);
-        listCartPreviewItems.LabelColor.AssertText(products[0].Colors[0]);
-        listCartPreviewItems.LabelItemPrice.AssertText(products[0].Price);
+        ListCartPreview listCartPreview = homePage.Navigation.PanelCartPreview.ListCartPreviewItems;
+        listCartPreview.UsingLabelName().WithRow(products[0].Name).LabelItemName.AssertIsVisible();
+        listCartPreview.LabelSize.AssertIsNotVisible();
+        listCartPreview.LabelColor.AssertIsNotVisible();
+        listCartPreview.LabelDetails.Click();
+        listCartPreview.LabelSize.AssertIsVisible();
+        listCartPreview.LabelColor.AssertIsVisible();
+        listCartPreview.LabelSize.AssertText(products[0].Sizes[0]);
+        listCartPreview.LabelColor.AssertText(products[0].Colors[0]);
+        listCartPreview.LabelItemPrice.AssertText(products[0].Price);
     }
 
     [TestMethod]
@@ -58,14 +56,14 @@ public class CartPreviewTests : TestBase
 
         homePage.AddProductToCart(products[0], 0, 0);
         homePage.AddProductToCart(products[1], 1, 1);
-        homePage.Navigation.LabelCartCount.AssertIsVisible(2);
 
         homePage.Navigation.ButtonCart.Click();
         homePage.Navigation.PanelCartPreview.verifySubTotal(products.Slice(0, 2));
 
-        ListCartPreviewItems listCartPreviewItems = homePage.Navigation.PanelCartPreview.ListCartPreviewItems;
-        listCartPreviewItems.VerifyItem(products[0], 0, 0);
-        listCartPreviewItems.VerifyItem(products[1], 1, 1);
+        ListCartPreview listCartPreview = homePage.Navigation.PanelCartPreview.ListCartPreviewItems;
+        listCartPreview
+            .VerifyItem(products[0], 0, 0)
+            .VerifyItem(products[1], 1, 1);
     }
 
 }

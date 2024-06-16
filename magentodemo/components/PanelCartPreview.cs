@@ -13,7 +13,7 @@ public class PanelCartPreview : PanelControl
     public Label LabelSubTotal { get; }
     public Button ButtonViewCart { get; }
     public Button ButtonCheckout { get; }
-    public ListCartPreviewItems ListCartPreviewItems { get; }
+    public ListCartPreview ListCartPreviewItems { get; }
 
     public PanelCartPreview(IWebDriver driver)
     {
@@ -23,7 +23,7 @@ public class PanelCartPreview : PanelControl
         this.LabelSubTotal = new Label(driver, By.XPath("//span[@class='price']"));
         this.ButtonViewCart = new Button(driver, By.XPath("//span[text()='View and Edit Cart']"));
         this.ButtonCheckout = new Button(driver, By.XPath("//button[text()='Proceed to Checkout']"));
-        this.ListCartPreviewItems = new ListCartPreviewItems(
+        this.ListCartPreviewItems = new ListCartPreview(
             new Locator(driver, By.Id("mini-cart")), "//li[./div[@class='product']]"
             );
     }
