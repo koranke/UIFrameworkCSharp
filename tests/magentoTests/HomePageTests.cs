@@ -2,7 +2,7 @@
 using UIFrameworkCSharp.magentodemo;
 using UIFrameworkCSharp.magentodemo.components;
 using UIFrameworkCSharp.magentodemo.data;
-using UIFrameworkCSharp.magentodemo.pages.homePage;
+using UIFrameworkCSharp.magentodemo.pages;
 
 namespace UIFrameworkCSharp.tests.magentoTests;
 
@@ -29,7 +29,7 @@ public class HomePageTests : TestBase
     {
         MagentoSite site = new MagentoSite();
         site.HomePage.Open();
-        site.HomePage.Navigation.Search("shirt");
+        site.HomePage.Navigation.SearchFor("shirt");
         site.SearchResultsPage.AssertIsOpen();
         site.SearchResultsPage.LabelResults.AssertText("Search results for: 'shirt'");
         site.SearchResultsPage.ListProductItems.AssertRowCount(5);

@@ -16,27 +16,14 @@ public class PaginationControl : BaseControl
 
     public void ClickPage(int pageNumber)
     {
-        if (GetPages().Contains(pageNumber))
+        try
         {
-            locator.WithNext(ExtendedBy.Text(pageNumber.ToString())).Click();
+            IWebElement element = locator.GetWithNextLocator(By.XPath(String.Format(PageLocatorPattern, pageNumber))).GetElement();
+            element.Click();
         }
-        else
+        catch (Exception)
         {
             throw new Exception("Page number " + pageNumber + " not found");
         }
-    }
-
-    public List<int> GetPages()
-    {
-        List<int> pages = new List<int>();
-        foreach (IWebElement element in locator.GetWithNextLocator(By.XPath(PageLocatorPattern)).All())
-        {
-            string text = element.Text;
-            if (int.TryParse(text, out int page))
-            {
-                pages.Add(page);
-            }
-        }
-        return pages;
     }
 }

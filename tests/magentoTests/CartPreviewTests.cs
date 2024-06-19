@@ -1,7 +1,7 @@
-﻿using UIFrameworkCSharp.magentodemo.pages.homePage;
-using UIFrameworkCSharp.magentodemo;
+﻿using UIFrameworkCSharp.magentodemo;
 using UIFrameworkCSharp.magentodemo.data;
 using UIFrameworkCSharp.magentodemo.components;
+using UIFrameworkCSharp.magentodemo.pages;
 
 namespace UIFrameworkCSharp.tests.magentoTests;
 

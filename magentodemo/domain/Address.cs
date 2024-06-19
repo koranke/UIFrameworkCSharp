@@ -12,7 +12,7 @@ public class Address : BaseScenario
     public string Telephone { get; set; }
     public List<string> Street { get; set; }
     public string City { get; set; }
-    public Region Region { get; set; }
+    public AddressRegion Region { get; set; }
     public string Postcode { get; set; }
     [JsonIgnore]
     public string Country { get; set; }
@@ -29,7 +29,7 @@ public class Address : BaseScenario
             Telephone = GetNonNull(Telephone, RandomData.en.Phone.PhoneNumber());
             Street = GetNonNull(Street, new List<string> {RandomData.en.Address.StreetAddress()});
             City = GetNonNull(City, RandomData.en.Address.City());
-            Region = GetNonNull(Region, new Region().withDefaults());
+            Region = GetNonNull(Region, new AddressRegion().withDefaults());
             Postcode = GetNonNull(Postcode, RandomData.en.Address.ZipCode());
             CountryId = GetNonNull(CountryId, "US");
             Country = GetNonNull(Country, Countries.Get(CountryId).GetName());
@@ -38,14 +38,13 @@ public class Address : BaseScenario
         return this;
     }
 
-    public string toString()
+    public override string ToString()
     {
         if (Country == null && CountryId != null)
         {
-            State.NY.GetName();
             Country = Countries.Get(CountryId).GetName();
         }
-        return Firstname + " " + Lastname + "\n" + String.Join("\n", Street) + "\n" 
-            + City + ", " + Region.RegionName + ", " + Postcode + "\n" + Country + "\nT: " + Telephone;
+        return Firstname + " " + Lastname + Environment.NewLine + String.Join(Environment.NewLine, Street) + Environment.NewLine
+            + City + ", " + Region.Region + ", " + Postcode + Environment.NewLine + Country + $"{Environment.NewLine}T: " + Telephone;
     }
 }

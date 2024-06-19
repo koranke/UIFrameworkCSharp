@@ -44,4 +44,22 @@ public class Customer : BaseScenario
         return this;
     }
 
+    public Customer WithEmail(string email)
+    {
+        this.Email = email;
+        return this;
+    }
+
+    public Customer WithFirstname(string firstname)
+    {
+        this.Firstname = firstname;
+        return this;
+    }
+
+    public Customer WithLastname(string lastname)
+    {
+        this.Lastname = lastname;
+        return this;
+    }
+
 }

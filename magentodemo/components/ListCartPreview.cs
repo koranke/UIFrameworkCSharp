@@ -7,12 +7,12 @@ namespace UIFrameworkCSharp.magentodemo.components;
 
 public class ListCartPreview : ListControl<ListCartPreview>
 {
-    private RepeatingControl<Label> labelItemName;
+    private RepeatingControl<Label> labelName;
     private RepeatingControl<Label> labelDetails;
     private RepeatingControl<Label> labelSize;
     private RepeatingControl<Label> labelColor;
-    private RepeatingControl<Label> labelItemPrice;
-    private RepeatingControl<TextBox> textBoxlItemQty;
+    private RepeatingControl<Label> labelPrice;
+    private RepeatingControl<TextBox> textBoxQuantity;
     private RepeatingControl<Button> buttonRemove;
     private RepeatingControl<Button> buttonEdit;
 
@@ -21,7 +21,7 @@ public class ListCartPreview : ListControl<ListCartPreview>
         this.hasHeader = false;
         this.RowLocatorPattern = rowLocatorPattern;
 
-        this.labelItemName = new RepeatingControl<Label>(
+        this.labelName = new RepeatingControl<Label>(
             locator,
             ".//strong[@class='product-item-name']/a",
             LocatorMethod.XPATH,
@@ -53,7 +53,7 @@ public class ListCartPreview : ListControl<ListCartPreview>
             hasHeader
             );
 
-        this.labelItemPrice = new RepeatingControl<Label>(
+        this.labelPrice = new RepeatingControl<Label>(
             locator,
             ".//span[@class='price']",
             LocatorMethod.XPATH,
@@ -61,7 +61,7 @@ public class ListCartPreview : ListControl<ListCartPreview>
             hasHeader
             );
 
-        this.textBoxlItemQty = new RepeatingControl<TextBox>(
+        this.textBoxQuantity = new RepeatingControl<TextBox>(
             locator,
             ".//input[@class='input-text qty']",
             LocatorMethod.XPATH,
@@ -72,7 +72,7 @@ public class ListCartPreview : ListControl<ListCartPreview>
 
     public ListCartPreview UsingLabelName()
     {
-        this.searchLabel = labelItemName;
+        this.searchLabel = labelName;
         return this;
     }
 
@@ -80,7 +80,7 @@ public class ListCartPreview : ListControl<ListCartPreview>
     {
         get
         {
-            return this.labelItemName.Get(currentRow);
+            return this.labelName.Get(currentRow);
         }
     }
 
@@ -112,7 +112,7 @@ public class ListCartPreview : ListControl<ListCartPreview>
     {
         get
         {
-            return this.labelItemPrice.Get(currentRow);
+            return this.labelPrice.Get(currentRow);
         }
     }
 
@@ -120,7 +120,7 @@ public class ListCartPreview : ListControl<ListCartPreview>
     {
         get
         {
-            return this.textBoxlItemQty.Get(currentRow);
+            return this.textBoxQuantity.Get(currentRow);
         }
     }
 

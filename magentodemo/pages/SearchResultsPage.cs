@@ -3,7 +3,7 @@ using UIFrameworkCSharp.core;
 using UIFrameworkCSharp.core.controls;
 using UIFrameworkCSharp.magentodemo.components;
 
-namespace UIFrameworkCSharp.magentodemo.pages.searchResultsPage;
+namespace UIFrameworkCSharp.magentodemo.pages;
 
 public class SearchResultsPage : BaseMagentoPage<SearchResultsPage>
 {
@@ -14,10 +14,10 @@ public class SearchResultsPage : BaseMagentoPage<SearchResultsPage>
 
     public SearchResultsPage(MagentoSite site) : base(site, "catalogsearch/result/.*")
     {
-        this.Navigation = new PanelNavigation(site.WebDriver);
-        this.LabelResults = new Label(site.WebDriver, By.XPath("//h1[@class='page-title']/span"));
-        this.LabelNoResults = new Label(site.WebDriver, By.XPath("//div[@class='message notice']"));
-        this.ListProductItems = new ListProducts(
+        Navigation = new PanelNavigation(site.WebDriver);
+        LabelResults = new Label(site.WebDriver, By.XPath("//h1[@class='page-title']/span"));
+        LabelNoResults = new Label(site.WebDriver, By.XPath("//div[@class='message notice']"));
+        ListProductItems = new ListProducts(
             new Locator(site.WebDriver, By.XPath("//ol[@class='products list items product-items']")),
             "//li[@class='item product product-item']");
     }

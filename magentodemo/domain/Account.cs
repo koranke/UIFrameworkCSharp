@@ -73,7 +73,47 @@ public class Account : BaseScenario
 
     public string GetContactInfo()
     {
-        return $"{Customer.Firstname} {Customer.Lastname}\n" +
+        return $"{Customer.Firstname} {Customer.Lastname}" + Environment.NewLine +
                $"{Customer.Email}";
+    }
+
+    public Address? GetBillingAddress()
+    {
+        if (Customer.Addresses == null || !Customer.Addresses.Any())
+        {
+            return null;
+        }
+        return Customer.Addresses.FirstOrDefault(address => address.DefaultBilling);
+    }
+
+    public Address? GetShippingAddress()
+    {
+        if (!Customer.Addresses.Any())
+        {
+            return null;
+        }
+        return Customer.Addresses.FirstOrDefault(address => address.DefaultShipping);
+    }
+
+    public string GetBillingAddressAsString()
+    {
+        Address address = GetBillingAddress();
+        if (address == null)
+        {
+            return "You have not set a default billing address.";
+        }
+
+        return address.ToString();
+    }
+
+    public string GetShippingAddressAsString()
+    {
+        Address address = GetShippingAddress();
+        if (address == null)
+        {
+            return "You have not set a default shipping address.";
+        }
+
+        return address.ToString();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace UIFrameworkCSharp.magentodemo.pages;
 
-public abstract class BaseMagentoPage<T> : BasePage<T>
+public class BaseMagentoPage<T> : BasePage<T>
 {
     protected MagentoSite Site { get; set; }
     private string Path;

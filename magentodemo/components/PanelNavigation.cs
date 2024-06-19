@@ -5,6 +5,7 @@ namespace UIFrameworkCSharp.magentodemo.components;
 
 public class PanelNavigation : PanelControl
 {
+    public LinkControl LinkCreateAccount { get; }
     private string menuSelector = "//nav//span[text()=\"{0}\"]";
     public MenuOption WhatsNew { get; }
     public MenuOption Women { get; }
@@ -20,6 +21,7 @@ public class PanelNavigation : PanelControl
     public PanelNavigation(IWebDriver driver)
     {
         this.WebDriver = driver;
+        this.LinkCreateAccount = new LinkControl(driver, By.XPath("//div[@class='panel wrapper']//a[text()='Create an Account']"));
         this.Logo = new ImageControl(driver, By.XPath("//a[@class=\"logo\"]/img"));
         this.TextBoxSearch = new TextBox(driver, By.XPath("//input[@id=\"search\"]"));
         this.ButtonSearch = new Button(driver, By.XPath("//button[@class=\"action search\"]"));
@@ -35,7 +37,7 @@ public class PanelNavigation : PanelControl
         return By.XPath(string.Format(menuSelector, menuName));
     }
 
-    public void Search(string text)
+    public void SearchFor(string text)
     {
         TextBoxSearch.SetText(text);
         ButtonSearch.Click();

@@ -87,5 +87,13 @@ public abstract class BasePage<T>
         return this.GetType().Name + "Diff.png";
     }
 
-    // ... Rest of the methods
+    public string GetTitle()
+    {
+        return WebDriver.Title;
+    }
+
+    public void AssertTitle(string expectedTitle)
+    {
+        Assert.AreEqual(expectedTitle, GetTitle(), "Unexpected page title.");
+    }
 }

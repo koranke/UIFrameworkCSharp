@@ -1,6 +1,6 @@
 ﻿using UIFrameworkCSharp.magentodemo.components;
 
-namespace UIFrameworkCSharp.magentodemo.pages.whatIsNewPage;
+namespace UIFrameworkCSharp.magentodemo.pages;
 
 public class WhatIsNewPage : BaseMagentoPage<WhatIsNewPage>
 {
@@ -8,7 +8,7 @@ public class WhatIsNewPage : BaseMagentoPage<WhatIsNewPage>
 
     public WhatIsNewPage(MagentoSite site) : base(site, "what-is-new.html")
     {
-        this.Navigation = new PanelNavigation(site.WebDriver);
+        Navigation = new PanelNavigation(site.WebDriver);
     }
 
     //public WhatIsNewPage Open()

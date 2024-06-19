@@ -4,7 +4,7 @@ using UIFrameworkCSharp.core;
 using UIFrameworkCSharp.magentodemo.components;
 using UIFrameworkCSharp.magentodemo.data;
 
-namespace UIFrameworkCSharp.magentodemo.pages.homePage;
+namespace UIFrameworkCSharp.magentodemo.pages;
 
 public class HomePage : BaseMagentoPage<HomePage>
 {
@@ -22,8 +22,8 @@ public class HomePage : BaseMagentoPage<HomePage>
 
     public HomePage(MagentoSite site) : base(site, "")
     {
-        this.Navigation = new PanelNavigation(site.WebDriver);
-        this.ListProducts = new ListProducts(
+        Navigation = new PanelNavigation(site.WebDriver);
+        ListProducts = new ListProducts(
             new Locator(site.WebDriver, By.XPath("//ol[@class='product-items widget-product-grid']"))
             , "//li[@class='product-item']");
     }

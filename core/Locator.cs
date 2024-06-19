@@ -1,7 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
-using UIFrameworkCSharp.core.extensions;
 
 namespace UIFrameworkCSharp.core;
 
@@ -13,6 +12,7 @@ public class Locator
     public By By { get; private set; }
     private int? index;
     private Locator next;
+    private Locator parent;
 
     public Locator WithIndex(int index)
     {
@@ -30,6 +30,12 @@ public class Locator
     {
         this.next = new Locator(webDriver, by);
         this.next.WithIndex(index);
+        return this;
+    }
+
+    public Locator WithParent(Locator parent)
+    {
+        this.parent = parent;
         return this;
     }
 
@@ -62,6 +68,7 @@ public class Locator
 
     public IWebElement GetElement()
     {
+        if (parent != null) parentElement = parent.GetElement();
         if (parentElement != null) return GetElement(parentElement);
 
         IWebElement webElement;

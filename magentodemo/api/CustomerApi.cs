@@ -1,4 +1,6 @@
-﻿using System.Net.Http.Json;
+﻿using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using System.Net.Http.Json;
 using UIFrameworkCSharp.core.api;
 using UIFrameworkCSharp.core.enums;
 using UIFrameworkCSharp.magentodemo.domain;
@@ -24,11 +26,34 @@ public class CustomerApi : ApiBase<CustomerApi>
         return new CustomerApi().Post("integration/customer/token", authBody);
     }
 
+    /*
+     * The Magento API returns the JSON in snake_case.  In order to get around that, we first need to get
+     * the JSON back as a string.  Then we can deserialize the JSON into a Customer object using Newtonsoft.Json.
+     * along with the GetSerializerSettings method.
+    */
     public static Account GetMe(string token)
     {
-        return TryGetMe(token)
+        string json = TryGetMe(token)
             .EnsureSuccessStatusCode()
-            .Content.ReadFromJsonAsync<Account>().Result;
+            .Content.ReadAsStringAsync().Result;
+
+        Customer customer = JsonConvert.DeserializeObject<Customer>(json, GetSerializerSettings());
+
+        return new Account() { Customer = customer };
+    }
+
+    /*
+     * This is needed as the Magento GetMe API returns the JSON in snake_case.
+    */
+    public static JsonSerializerSettings GetSerializerSettings()
+    {
+        return new JsonSerializerSettings
+        {
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new SnakeCaseNamingStrategy()
+            }
+        };
     }
 
     public static HttpResponseMessage TryGetMe(string token)

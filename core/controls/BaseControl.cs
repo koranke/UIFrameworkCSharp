@@ -4,7 +4,9 @@ namespace UIFrameworkCSharp.core.controls;
 
 public abstract class BaseControl
 {
+    private IWebDriver webDriver;
     protected Locator locator;
+    protected string xpath;
 
     public BaseControl(IWebDriver webDriver, By by)
     {
@@ -16,9 +18,39 @@ public abstract class BaseControl
         this.locator = locator;
     }
 
+    public BaseControl(IWebDriver webDriver, string xpath)
+    {
+        this.webDriver = webDriver;
+        this.xpath = xpath;
+    }
+
+    public Locator GetLocator(string item)
+    {
+        if (locator == null)
+        {
+            return new Locator(webDriver, By.XPath(xpath.Replace("{0}", item)));
+        }
+        else
+        {
+            return locator;
+        }
+    }
+
+    public Locator GetLocator()
+    {
+        if (locator == null)
+        {
+            return new Locator(webDriver, By.XPath(xpath));
+        }
+        else
+        {
+            return locator;
+        }
+    }
+
     public bool IsEnabled()
     {
-        return locator.IsEnabled();
+        return GetLocator().IsEnabled();
     }
 
     public void AssertIsEnabled()
@@ -33,12 +65,12 @@ public abstract class BaseControl
 
     public bool IsVisible(int timeoutInSeconds)
     {
-        return locator.IsVisible(timeoutInSeconds);
+        return GetLocator().IsVisible(timeoutInSeconds);
     }
 
     public bool IsNotVisible()
     {
-        return locator.IsNotVisible();
+        return GetLocator().IsNotVisible();
     }
 
     public void AssertIsVisible()
@@ -90,7 +122,7 @@ public abstract class BaseControl
         string actualText;
         if (GetType().IsAssignableFrom(typeof(TextBox)))
         {
-            actualText = locator.GetAttribute("value");
+            actualText = GetLocator().GetAttribute("value");
         }
         else if (GetType().IsAssignableFrom(typeof(Button)))
         {
@@ -98,7 +130,7 @@ public abstract class BaseControl
         }
         else
         {
-            actualText = locator.GetText();
+            actualText = GetLocator().GetText();
         }
         return actualText == null ? "" : actualText;
     }
@@ -110,6 +142,6 @@ public abstract class BaseControl
 
     public string GetAttribute(string attributeName)
     {
-        return locator.GetAttribute(attributeName);
+        return GetLocator().GetAttribute(attributeName);
     }
 }
