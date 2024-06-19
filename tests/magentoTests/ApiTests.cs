@@ -1,5 +1,4 @@
-﻿using UIFrameworkCSharp.core.utilities;
-using UIFrameworkCSharp.magentodemo.api;
+﻿using UIFrameworkCSharp.magentodemo.api;
 using UIFrameworkCSharp.magentodemo.domain;
 
 namespace UIFrameworkCSharp.tests.magentoTests;

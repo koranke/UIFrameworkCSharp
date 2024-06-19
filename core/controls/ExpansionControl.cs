@@ -11,15 +11,15 @@ public class ExpansionControl : BaseControl
         this.itemLocator = itemLocator;
     }
 
-    public ExpansionControl expand(string controlText)
+    public ExpansionControl Expand(string controlText)
     {
         GetLocator(controlText).Click();
         return this;
     }
 
-    public ExpansionControl selectItem(string controlText, string itemText)
+    public ExpansionControl SelectItem(string controlText, string itemText)
     {
-        expand(controlText);
+        Expand(controlText);
         GetLocator(controlText).WithNext(By.XPath(itemLocator.Replace("{0}", itemText))).Click();
         return this;
     }
